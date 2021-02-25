@@ -4,8 +4,18 @@
 
 
 // Configuracao da chave para criptografia
-char CHAVE[] = "AbCd";
+char CHAVE[500] = "AbCd";
 int TAM_CHAVE = strlen(CHAVE);
+
+bool set_chave(char chave[]){
+    if(strlen(chave)< 500){
+        strcpy(CHAVE,chave);
+        TAM_CHAVE = strlen(CHAVE);
+        return true;
+    }else{
+        return false;
+    }
+}
 
 //vetor de entrada do texto a ser criptografado
 char TEXTO[100000];
@@ -21,7 +31,7 @@ bool Criptografar(){
         TEXTO_CRIPT[i]=TEXTO[i];
 
     }
-    printf("\n -- %d -- \n",TEXTO_CRIPT[1]);
+    printf("\n --Numero da Tabela ASCII da primeira letra: %d -- \n",TEXTO_CRIPT[0]);
 
     for(int aux = 0; aux < strlen(TEXTO);){
         for(int i=0; i < TAM_CHAVE; i++){
@@ -32,7 +42,7 @@ bool Criptografar(){
 }
 
 
-    printf("\n -- %d -- \n",TEXTO_CRIPT[1]);
+    printf("\n --Criptografia da primeira letra com a chave configurada: %d -- \n",TEXTO_CRIPT[0]);
     return true;
 }
 
@@ -101,21 +111,28 @@ void Recebe_Texto(char tipo[]){
 
 
     }else if(strcmp(tipo,"arquivo") == 0){
+        printf("\n\nPrograma desenvolvido por Jorge Gabriel\n\n");
+        printf("----------------------------------");
+        printf("\n\nCriptografia de dados\n\n");
+        printf("----------------------------------");
         printf("\n\nInstrucoes para importar um arquivo de texto:");
         printf("\n\n 1 - Renomeie o arquivo para 'original.txt'");
         printf("\n\n 2 - Copie o arquivo para a pasta que sera aberta a seguir");
-        printf("\n\n 3 - Feche o explorador e retorne a aplicacao");
+        printf("\n\n 3 - Feche o explorador e retorne a aplicacao\n\n");
+        printf("----------------------------------");
 
-
-        printf("\n\n\n Pressione Enter para abrir a pasta...");
+        printf("\n\n\n Pressione Enter para abrir a pasta...\n\n");
+        printf("----------------------------------");
         scanf("%c",&pause);
         setbuf(stdin, NULL);
 
         system(" explorer C:\\cript\\arquivos_originais\\");
-        printf("\n\n\n Pressione enter apos colar o arquivo na pasta...");
+        printf("\n\n\n Pressione enter apos colar o arquivo na pasta...\n\n");
+        printf("----------------------------------");
         scanf("%c",&pause);
         setbuf(stdin,NULL);
         printf("\n\nImportando arquivo...\n\n");
+        printf("----------------------------------");
 
 
         arquivo = fopen("C:\\cript\\arquivos_originais\\original.txt","r");
@@ -176,18 +193,25 @@ void Recebe_Texto(char tipo[]){
 
 void Receber_Arquivo_cript(){
         char pause;
+        printf("\n\nPrograma desenvolvido por Jorge Gabriel\n\n");
+        printf("----------------------------------");
+        printf("\n\nCriptografia de dados\n\n");
+        printf("----------------------------------");
         printf("\n\nInstrucoes para importar um arquivo criptografado:");
         printf("\n\n 1 - Renomeie o arquivo para 'criptografado.txt'");
         printf("\n\n 2 - Copie o arquivo para a pasta que sera aberta a seguir");
-        printf("\n\n 3 - Feche o explorador e retorne a aplicacao");
+        printf("\n\n 3 - Feche o explorador e retorne a aplicacao\n\n");
+        printf("----------------------------------");
 
 
-        printf("\n\n\n Pressione Enter para abrir a pasta...");
+        printf("\n\n\n Pressione Enter para abrir a pasta...\n\n");
+        printf("----------------------------------");
         scanf("%c",&pause);
         setbuf(stdin, NULL);
 
         system(" explorer C:\\cript\\arquivos_recebidos\\");
-        printf("\n\n\n Pressione enter apos colar o arquivo na pasta...");
+        printf("\n\n\n Pressione enter apos colar o arquivo na pasta...\n\n");
+        printf("----------------------------------");
         scanf("%c",&pause);
         setbuf(stdin, NULL);
         printf("\n\nImportando arquivo...\n\n");
@@ -213,11 +237,15 @@ void Receber_Texto(){
 
 void Menu_Criptografar(){
     int opcao;
-    printf("\n\tCriptografia de dados");
+    printf("\n\nPrograma desenvolvido por Jorge Gabriel\n\n");
+    printf("----------------------------------");
+    printf("\n\nCriptografia de dados\n\n");
+    printf("----------------------------------");
     printf("\n\n Criptografar texto ou arquivo");
     printf("\n\n\n 1 - Digitar texto ");
     printf("\n\n 2 - Importar arquivo de texto (txt)");
-    printf("\n\n 3 - Voltar ao menu principal ");
+    printf("\n\n 3 - Voltar ao menu principal \n\n");
+    printf("----------------------------------");
     printf("\n\n Informe a opcao desejada: ");
     scanf("%d", &opcao);
     setbuf(stdin,NULL);
@@ -242,13 +270,19 @@ void Menu_Criptografar(){
 
 
 void Menu(){
+    char chave[500];
     int opcao;
     while(1){
         system("cls");
-        printf("\n\tCriptografia de dados");
+        printf("\n\nPrograma desenvolvido por Jorge Gabriel\n\n");
+        printf("-----------------------------------");
+        printf("\n\nCriptografia de dados\n\n");
+        printf("----------------------------------");
         printf("\n\n 1 - Criptografar texto ou arquivo");
         printf("\n\n 2 - Receber Arquivo");
-        printf("\n\n 3 - Sair");
+        printf("\n\n 3 - Configurar Chave");
+        printf("\n\n 4 - Sair\n\n");
+        printf("----------------------------------");
         printf("\n\n Informe a opcao desejada: ");
         scanf("%d",&opcao);
         setbuf(stdin,NULL);
@@ -263,6 +297,18 @@ void Menu(){
                 Receber_Arquivo_cript();
                 break;
             case 3:
+                system("cls");
+                printf("\n\nInforme a chave :\n\n");
+                gets(chave);
+                if(set_chave(chave)){
+                    printf("\n\nChave modificada com sucesso!\n");
+                }else{
+                     printf("\n\nChave nao pode ser modificada!\n");
+                }
+                system("pause");
+                break;
+
+            case 4:
                  printf("\nFinalizando...\n\n");
                  system("pause");
                  exit(0);
@@ -275,6 +321,7 @@ void Menu(){
 
 int main()
 {
+    set_chave("AbCd");
     Menu();
     return 0;
 }
